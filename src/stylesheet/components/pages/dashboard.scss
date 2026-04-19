@@ -1,0 +1,33 @@
+.dashboard {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-height: 100vh;
+  padding: 20px;
+  box-sizing: border-box;
+
+  &-content {
+    flex: 1;
+    padding: 20px;
+
+    &--container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+  }
+
+  &-swiper {
+    grid-column: 1;
+  }
+
+  &-tasklist {
+    grid-column: 1;
+  }
+
+  &-alerts {
+    grid-column: 2;
+    grid-row: 1 / span 2;
+    padding: 16px;
+  }
+}

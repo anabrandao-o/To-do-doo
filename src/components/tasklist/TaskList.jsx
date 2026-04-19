@@ -1,12 +1,14 @@
-import React, { useState, useEffect } from "react";
-import { tasks as initialTasks } from "./List";
-import { toggleTask } from "../../utils/checked";
-import { Label } from "../tasklist/labels/labels";
-import { formatTaskDate } from "../../utils/date";
+import React, { useState, useEffect } from 'react';
+import { tasks as initialTasks } from './List';
+import { toggleTask } from '../../utils/checked';
+import { Label } from '../tasklist/labels/labels';
+import { formatTaskDate, isAlmostLate } from '../../utils/date';
+import { ButtonFilter } from './buttons/button';
+import { isLate } from '../../utils/date';
 
 const TaskList = () => {
   const [tasks, setTasks] = useState(() => {
-    const storedTasks = localStorage.getItem("tasks");
+    const storedTasks = localStorage.getItem('tasks');
     return storedTasks ? JSON.parse(storedTasks) : initialTasks;
   });
 
@@ -16,8 +18,30 @@ const TaskList = () => {
   }
 
   useEffect(() => {
-    localStorage.setItem("tasks", JSON.stringify(tasks));
+    localStorage.setItem('tasks', JSON.stringify(tasks));
   }, [tasks]);
+
+  const [filter, setFilter] = useState('all');
+
+  const filteredTasks = tasks.filter((task) => {
+    if (filter === 'today') {
+      return formatTaskDate(task.date) === formatTaskDate(new Date());
+    }
+
+    if (filter === 'late') {
+      return isLate(task);
+    }
+
+    if (filter === 'done') {
+      return task.checked;
+    }
+
+    if (filter === 'now') {
+      return isAlmostLate(task);
+    }
+
+    return true;
+  });
 
   return (
     <div className="tasklist">
@@ -28,19 +52,17 @@ const TaskList = () => {
         </div>
 
         <div className="tasklist-buttons">
-          <button className="tasklist-button">Hoje</button>
-          <button className="tasklist-button">Atrasadas</button>
-          <button className="tasklist-button">Concluídos</button>
+          <ButtonFilter filter={filter} setFilter={setFilter} />
         </div>
 
         <div className="tasklist-content">
           <div className="tasklist-content--list">
-            {tasks.map((task, index) => (
-              <div key={index} className="tasklist-content--item">
+            {filteredTasks.map((task, id) => (
+              <div key={id} className="tasklist-content--item">
                 <input
                   type="checkbox"
                   checked={task.checked}
-                  onChange={() => handleToggle(index)}
+                  onChange={() => handleToggle(id)}
                 />
 
                 <h3>{task.Task}</h3>

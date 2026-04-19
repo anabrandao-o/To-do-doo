@@ -1,6 +1,6 @@
-import { Dashboard } from "./pages/Dashboard";
-import "./stylesheet/main.scss";
-import React from "react";
+import { Dashboard } from './pages/Dashboard';
+import './stylesheet/main.scss';
+import React from 'react';
 
 function App() {
   return (

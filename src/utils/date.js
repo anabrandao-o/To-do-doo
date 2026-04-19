@@ -13,7 +13,7 @@ export function isAlmostLate(task) {
   const now = new Date();
   const taskDate = new Date(task.date);
 
-  const diff = taskDate - now; 
+  const diff = taskDate - now;
 
   const oneHour = 1000 * 60 * 60;
 
@@ -29,13 +29,13 @@ export function formatTaskDate(dateString) {
     date.getMonth() === now.getMonth() &&
     date.getFullYear() === now.getFullYear();
 
-  const time = date.toLocaleTimeString("pt-BR", {
-    hour: "2-digit",
-    minute: "2-digit",
+  const time = date.toLocaleTimeString('pt-BR', {
+    hour: '2-digit',
+    minute: '2-digit',
   });
 
   if (isToday) {
     return `Hoje às ${time}`;
   }
-  return date.toLocaleDateString("pt-BR") + ` às ${time}`;
+  return date.toLocaleDateString('pt-BR') + ` às ${time}`;
 }

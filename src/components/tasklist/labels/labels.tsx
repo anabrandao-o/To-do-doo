@@ -1,4 +1,4 @@
-import { isLate, isAlmostLate } from "../../../utils/date";
+import { isLate, isAlmostLate } from '../../../utils/date';
 
 export interface Task {
   id: number;
@@ -14,7 +14,6 @@ interface LabelProps {
 export const Label = ({ task }: LabelProps) => {
   return (
     <div className="labels">
-
       {task.checked && (
         <div className="labels-checked">
           <span className="labels-checked-green">Concluída</span>
@@ -32,7 +31,6 @@ export const Label = ({ task }: LabelProps) => {
           <span className="labels-yellow">Conclua sua tarefa</span>
         </div>
       )}
-
     </div>
   );
 };
