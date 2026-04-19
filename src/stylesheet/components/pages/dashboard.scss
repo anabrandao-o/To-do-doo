@@ -27,7 +27,10 @@
 
   &-alerts {
     grid-column: 2;
+    display: flex;
     grid-row: 1 / span 2;
     padding: 16px;
+    width: 70%;
+    justify-self: end;
   }
 }
